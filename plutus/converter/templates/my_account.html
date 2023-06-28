@@ -1,0 +1,104 @@
+{% extends "master.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/acc.css' %}" />
+<script src="{% static 'js/my_account.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}
+PLUTUS | My account
+{% endblock %}
+
+{% block content %}
+
+<header class="header">
+  <div class="container">
+    <div class="header__inner">
+      <div class="header__logo">
+      </div>
+      <h1 class="header__welcome">Welcome {{request.session.user}}!</h1>
+      <form method="post" class="form__header">
+        {% csrf_token %}
+        <button class="header__btn" name="converter" type="submit">
+          Main Page
+        </button>
+        <button class="header__btn" name="logout" type="submit">
+          Log out
+        </button>
+      </form>
+    </div>
+  </div>
+</header>
+
+<div class="container-two">
+  <!-- <div> -->
+  <form method="post">
+    <div id="base_div_saved_pairs">
+      <div id="saved_pairs_content">
+        {% csrf_token %}
+        {% if pairs %}
+        {% for pair in pairs %}
+        <div class="pair__row" id="{{pair}}">
+          <div class="pair__row-amount">
+            <input class="pair__row-input" type="number" value="{{pair.amount}}" id="amount" step="0.01">
+          </div>
+          <div class="pair__row-result">
+            <input class="pair__row-input" type="number" value="{{pair.result}}" id="result" step="0.01" disabled>
+          </div>
+          <select class="select-two" id="from_currency{{pair.id}}">
+          </select>
+          <select class="select-two" id="to_currency{{pair.id}}">
+          </select>
+          <button class="btn" type="button" id="delete_pair" onclick="deletePair()">Delete Pair</button>
+          <script type="text/javascript">
+            document.getElementById("from_currency{{pair.id}}").innerHTML = from_currency_options;
+            document.getElementById("from_currency{{pair.id}}").value = "{{pair.from_currency}}";
+            document.getElementById('to_currency{{pair.id}}').innerHTML = to_currency_options;
+            document.getElementById('to_currency{{pair.id}}').value = "{{pair.to_currency}}";
+          </script>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="pair__row" id="default-pair">
+          <div class="pair__row-amount">
+            <input class="pair__row-input" type="number" value="1" name="amount1" id="amount1" step="0.01">
+          </div>
+          <div class="pair__row-result">
+            <input class="pair__row-input" type="number" value="{{default_pair_result}}" id="default-pair__result" step="0.01" disabled>
+          </div>
+          <select class="select-two" id="from_currency1" name="from_currency1">
+          </select>
+          <select class="select-two" id="to_currency1" name="to_currency1">
+          </select>
+        </div>
+        {% endif %}
+      </div>
+      <h1 class="conv-title">New pairs</h1>
+      <div id="new_pairs" class="newPairs">
+        <div id="first" class="newPairs__item">
+        </div>
+      </div>
+      <div class="add-save-box">
+        <button class="btn" type="button" id="button" onclick="addNewRow()">
+          <span>Add pair</span>
+        </button>
+        <div class="save-btn">
+          <button class="btn" type="submit" id="add_pairs" name="add_pairs" value="0">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="afterContainerBlock"></div>
+</div>
+<script type="text/javascript">
+  var number_of_saved_pairs = "{{number_of_pairs}}";
+  addIds();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "master.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/reg.css' %}" />
+<script src="{% static 'js/log-reg.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+PLUTUS | Register
+{% endblock %}
+
+{% block content %}
+<header class="header">
+  <div class="header__container">
+    <div class="header__inner">
+      <div class="header__logo">
+      </div>
+      <a class="header__btn" href="{% url 'converter' %}">
+        Main Page
+      </a>
+    </div>
+  </div>
+</header>
+<div class="wrapper">
+  <div class="container">
+    <h1>
+      Register
+    </h1>
+    <div class="error">
+      <p class="error--text" id="password_error_empty">
+        Password cannot be empty / must be at least 7 characters long
+      </p>
+      <p class="error--text" id="email_error">
+        Bad email address!
+      </p>
+      <p class="error--text" id="password_error_mismatch">
+        Passwords don't match!
+      </p>
+    </div>
+    <form class="reg" autocomplete="off" action="" method="post" name="registration"
+          onsubmit="return formValidationRegister();">
+      {% csrf_token %}
+      <div class="reg__email" id="email">
+        <label for="reg__email-input">
+          Email
+          <input type="text" class="reg__input" name="email" required>
+        </label>
+      </div>
+      <div class="reg__password" id="password">
+        <label for="reg__input">
+          Password
+          <input type="password" class="reg__input" name="password" required>
+        </label>
+      </div>
+      <div class="reg__password-rep" id="rep_password">
+        <label for="reg__input">
+          Repeat your password
+          <input type="password" class="reg__input" name="rep_password" required>
+        </label>
+      </div>
+      <p>{{error}}</p>
+      <input class="reg-btn" type="submit" value="Register" name="register">
+    </form>
+    <p class="login__link">
+      <a class="login__link-a" href="/login">
+        Already have an account? Log in!
+      </a>
+    </p>
+  </div>
+</div>
+{% endblock %}

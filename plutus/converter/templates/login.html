@@ -1,0 +1,65 @@
+{% extends "master.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
+<script src="{% static 'js/log-reg.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+PLUTUS | Login
+{% endblock %}
+
+{% block content %}
+
+<header class="header">
+  <div class="header__container">
+    <div class="header__inner">
+      <div class="header__logo">
+      </div>
+      <a class="header__btn" href="{% url 'converter' %}">
+        Main Page
+      </a>
+    </div>
+  </div>
+</header>
+<div class="wrapper">
+  <div class="container">
+    <h1>
+      Log in
+    </h1>
+    <div class="error">
+      {% if invalid_login == 1 %}
+        <p class="error--text-invalid" id="no-account_error">
+          Invalid credentials
+        </p>
+      {% endif %}
+        <p class="error--text" id="email_error">
+          Bad email address!
+        </p>
+    </div>
+
+    <form class="login" autocomplete="off" action="" method="post" name="login" onsubmit="return formValidationLogin();">
+      {% csrf_token %}
+      <div class="login__email">
+        <label for="login__input">
+          Email
+          <input type="text" class="login__input" name="email" id="email">
+        </label>
+      </div>
+      <div class="login__password">
+        <label for="login__input">
+          Password
+          <input type="password" class="login__input" name="password" id="password">
+        </label>
+      </div>
+      <button class="login-btn" type="submit">Login</button>
+    </form>
+    <p class="reg__link">
+      <a class="reg__link-a" href="/register">
+        Don't have an account? Sign up!
+      </a>
+    </p>
+  </div>
+</div>
+{% endblock %}

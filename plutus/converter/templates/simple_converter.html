@@ -1,0 +1,156 @@
+{% extends "master.html" %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="{% static 'js/converter.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}
+PLUTUS | Login
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <div class="header__logo">
+        </div>
+        <ul class="header__personal">
+          <li class="header__personal-item">
+            <a href="{% url 'my_account' %}" class="header__personal-link"> Personal Account
+            </a>
+          </li>
+<!--          <li class="header__personal-item">-->
+<!--            <a href="#" class="header__personal-link">-->
+<!--              Support-->
+<!--            </a>-->
+<!--          </li>-->
+<!--          <li class="header__personal-item">-->
+<!--            <a href="#" class="header__personal-link">EN</a>-->
+<!--          </li>-->
+        </ul>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <div class="tabs">
+      <div class="tabs-triggers">
+        <a href="#tab-1" class="tabs-triggers__item">Currency converter
+        </a>
+        <a href="#tab-2" class="tabs-triggers__item">Reverse conversion
+        </a>
+      </div>
+      <form action="#" method="post" class="landing">
+      {% csrf_token %}
+      <div class="tabs-content">
+        <div id="tab-1" class="tabs-content__item">
+          <div class="input_tables" id="converter">
+            <label for="amount">Amount</label>
+            <div class="input__tables-item" onclick="amountFocus()">
+              <input type="number" name="amount" id="amount" step="0.01" value="1" required>
+            </div>
+            <label for="from_currency">From</label>
+            <select class="input__tables-item select-two" name="from_currency" id="from_currency" required>
+            </select>
+            <label for="to_currency">To</label>
+            <select class="input__tables-item select-two" name="to_currency" id="to_currency" required>
+            </select>
+          </div>
+          <div class="result__flex">
+            <div class="input__result">
+              {% if result_start %}
+              <p class="input__result-amount">
+                {{amount}} {{from_currency}} =
+              </p>
+              <p class="input__result-BigRate">
+                {{result_start}}<span class="faded-digits">{{result_end}}</span>
+                {{to_currency}}
+              </p>
+              <p class="input__result-unitRates">
+                {% if amount != '1' %}
+                1 {{from_currency}} = {{rate}} {{to_currency}}
+                {% endif %}
+              </p>
+              <p class="input__result-unitRates">
+                1 {{to_currency}} = {{reverse_rate}} {{from_currency}}
+              </p>
+              {% endif %}
+            </div>
+            <button class="input__result-button" type="submit">
+              Convert
+            </button>
+          </div>
+          </form>
+        </div>
+
+        <form action="#" method="post">
+          {% csrf_token %}
+          <div id="tab-2" class="tabs-content__item">
+            <div class="input_tables" id="converter__double">
+              <label for="amount__double">Amount</label>
+              <div class="input__tables-item" onclick="amountDouble()">
+                <input type="number" name="amount__double" id="amount__double" step="0.01" value="1" required>
+              </div>
+              <label for="payment__system">Payment system</label>
+              <select class="input__tables-item select-two payment__system" name="payment__system" id="payment__system"
+                      required>
+              </select>
+              <div></div>
+              <button class="input__result-button double-btn" type="submit">
+                Convert
+              </button>
+            </div>
+            <div class="result__flex-two">
+              <div class="double__tables">
+                <label for="from_currency__double">Needed currency</label>
+                <select name="from_currency__double" id="from_currency__double"
+                        class="currency input__tables-item select-two from_currency__double"
+                        required>
+                </select>
+                <br>
+                <label for="to_currency__double">Available currency</label>
+                <select name="to_currency__double" id="to_currency__double" class="currency input__tables-item select-two"
+                        required>
+                </select>
+              </div>
+              <div class="input__result-two">
+                {% if result__double_start %}
+                <p class="input__result-amount">
+                  To buy {{amount__double}} {{to_currency__double}} you need
+                </p>
+                <p class="input__result-BigRate">
+                  {{result__double_start}}<span class="faded-digits">{{result__double_end}}</span>
+                  {{from_currency__double}}
+                </p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>
+</div>
+<script>
+  tabsSwitch();
+
+  window.addEventListener("load", (event) => {
+    converter();
+  });
+
+  var amount = '{{amount}}';
+  var from_currency = '{{from_currency}}';
+  var to_currency = '{{to_currency}}';
+  var amount__double = '{{amount__double}}';
+  var from_currency__double = '{{from_currency__double}}';
+  var to_currency__double = '{{to_currency__double}}';
+  var payment_system = '{{payment__system}}';
+</script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock %}

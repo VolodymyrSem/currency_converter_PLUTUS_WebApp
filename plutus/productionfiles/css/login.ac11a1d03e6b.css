@@ -1,0 +1,182 @@
+/* ========================GLOBAL============================ */
+html, body {
+  font-size: 16px;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #333333;
+  line-height: 22px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+
+.wrapper {
+  min-height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.header__container {
+  max-width: 1000px;
+  padding: 0 15px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.container {
+  max-width: 430px;
+  padding: 0 15px;
+  margin: 0 auto;
+  height: 100%;
+  margin-top: 64px;
+}
+
+/* ========================HEADER============================ */
+
+.header {
+  max-height: 60px;
+  background-color: #00214a;
+}
+
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  color: #ffffff;
+}
+
+.header__logo {
+  background: url("../adds/images/logo.87994262751a.jpg");
+  width: 131px;
+  height: 86px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.header__btn {
+  display: flex;
+  position: relative;
+  color: #fff;
+  background-color: #00214a;
+  line-height: inherit;
+  font-size: inherit;
+  transition: all .3s;
+  height: 60px;
+  align-items: center;
+}
+.header__btn:hover {
+  color: #0078f9;
+}
+.header__btn:after {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 3px;
+  left: 50%;
+  position: absolute;
+  background: #fff;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+.header__btn:hover:after { 
+  width: 100%; 
+  left: 0; 
+}
+
+/* ========================LOGIN============================ */
+
+h1 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 34px;
+  line-height: 42px;
+  text-align: start; 
+  padding-bottom: 15px;
+}
+h1:hover {
+  color: #003d87;
+}
+
+.login__email {
+  padding-top: 20px;
+}
+.login__input {
+  transition: all .3s;
+  width: 100%;
+  height: 3rem;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgb(46, 60, 87);
+  border: 2px solid rgb(162, 162, 162);
+}
+.login__input:hover {
+  border: 2px solid #000;
+}
+
+.login-btn {
+  width: 100%;
+  min-width: 64px;
+  font-weight: 400;
+  line-height: 2rem;
+  border-radius: 100px;
+  transition: all .3s;
+  color: #fff;
+  background-color: #003d87;
+}
+
+.login-btn:hover {
+  box-shadow: 0px 0px 5px 1px #99b5d8;
+  scale: 1.01;
+}
+
+.reg__link {
+  margin-top: 20px;
+  color: #003d87;
+}
+
+.reg__link-a {
+  text-decoration: none;
+  display: block;
+	position: relative;
+	padding: 0.2em 0;
+  overflow: hidden;
+}
+
+.reg__link-a::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 0.1em;
+	background-color: rgb(69, 66, 211);
+	opacity: 0;
+	transition: opacity 300ms, transform 300ms;
+  opacity: 1;
+	transform: translate3d(-100%, 0, 0);
+}
+
+.reg__link-a:hover::after,
+.reg__link-a:focus::after {
+	opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.error {
+  display: block;
+  background-color: rgb(235 1 1 / 77%);
+}
+.error--text {
+  display: none;
+  padding: 10px;
+  color: #000;
+}
+
+.error--text-invalid {
+  padding: 10px;
+  color: #000;
+}

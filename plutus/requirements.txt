@@ -1,0 +1,7 @@
+Django==4.2.1
+requests==2.31.0
+colorama==0.4.6
+pandas==2.0.2
+currencyapicom==0.1
+whitenoise==6.5.0
+psycopg2-binary==2.9.6
